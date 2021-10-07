@@ -66,9 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 try {
                   var response = await locator<AddressService>().getAddresses();
-                  if (response.status != null) {
+                  if (response.responseStatus != null) {
                     //there was an error
-                    String message = response.status?.message as String;
+                    String message = response.responseStatus?.message as String;
                     SnackBar sb = SnackbarBuilder(
                             context: context,
                             message: message,
@@ -89,7 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     message.writeln('Successfully retrieved ${addrList.length} addresses from the server.');
                   } else {
                     var msg =
-                        'Got nothing from server!\n Status: ${response.status}\nAddress List: ${response.addresses}';
+                        'Got nothing from server!\n ResponseStatus: ${response.responseStatus}\nAddress List: ${response
+                        .addresses}';
                     SnackBar sb = SnackbarBuilder(
                             context: context,
                             message: msg,
@@ -115,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     message.writeln('\nResponseStatus object is NULL.');
                   }
                 } catch (error) {
-                  message = error.toString() as StringBuffer;
+                  message.writeln('Unexpected error: ${error.toString()}');
                   hasError = true;
                 } finally {
                   if (hasError) {

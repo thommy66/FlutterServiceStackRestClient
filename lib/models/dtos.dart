@@ -1,8 +1,8 @@
 /* Options:
-Date: 2021-10-07 09:34:36
+Date: 2021-10-07 17:02:15
 Version: 5.121
 Tip: To override a DTO option, remove "//" prefix before updating
-BaseUrl: https://localhost:5001
+BaseUrl: http://localhost:5001
 
 GlobalNamespace: dtos
 //AddServiceStackTypes: True
@@ -50,46 +50,23 @@ class Address implements IConvertible
 class GetAddressListResponse implements IConvertible
 {
     List<Address>? addresses;
-    ResponseStatus? status;
+    ResponseStatus? responseStatus;
 
-    GetAddressListResponse({this.addresses,this.status});
+    GetAddressListResponse({this.addresses,this.responseStatus});
     GetAddressListResponse.fromJson(Map<String, dynamic> json) { fromMap(json); }
 
     fromMap(Map<String, dynamic> json) {
         addresses = JsonConverters.fromJson(json['addresses'],'List<Address>',context!);
-        status = JsonConverters.fromJson(json['status'],'ResponseStatus',context!);
+        responseStatus = JsonConverters.fromJson(json['responseStatus'],'ResponseStatus',context!);
         return this;
     }
 
     Map<String, dynamic> toJson() => {
         'addresses': JsonConverters.toJson(addresses,'List<Address>',context!),
-        'status': JsonConverters.toJson(status,'ResponseStatus',context!)
+        'responseStatus': JsonConverters.toJson(responseStatus,'ResponseStatus',context!)
     };
 
     getTypeName() => "GetAddressListResponse";
-    TypeContext? context = _ctx;
-}
-
-class GetAddressResponse implements IConvertible
-{
-    Address? address;
-    ResponseStatus? status;
-
-    GetAddressResponse({this.address,this.status});
-    GetAddressResponse.fromJson(Map<String, dynamic> json) { fromMap(json); }
-
-    fromMap(Map<String, dynamic> json) {
-        address = JsonConverters.fromJson(json['address'],'Address',context!);
-        status = JsonConverters.fromJson(json['status'],'ResponseStatus',context!);
-        return this;
-    }
-
-    Map<String, dynamic> toJson() => {
-        'address': JsonConverters.toJson(address,'Address',context!),
-        'status': JsonConverters.toJson(status,'ResponseStatus',context!)
-    };
-
-    getTypeName() => "GetAddressResponse";
     TypeContext? context = _ctx;
 }
 
@@ -109,35 +86,10 @@ class GetAddressList implements IReturn<GetAddressListResponse>, IConvertible
     TypeContext? context = _ctx;
 }
 
-// @Route("/address")
-class GetAddress implements IReturn<GetAddressResponse>, IConvertible
-{
-    String? addressId;
-
-    GetAddress({this.addressId});
-    GetAddress.fromJson(Map<String, dynamic> json) { fromMap(json); }
-
-    fromMap(Map<String, dynamic> json) {
-        addressId = json['addressId'];
-        return this;
-    }
-
-    Map<String, dynamic> toJson() => {
-        'addressId': addressId
-    };
-
-    createResponse() => GetAddressResponse();
-    getResponseTypeName() => "GetAddressResponse";
-    getTypeName() => "GetAddress";
-    TypeContext? context = _ctx;
-}
-
 TypeContext _ctx = TypeContext(library: 'dtos', types: <String, TypeInfo> {
     'Address': TypeInfo(TypeOf.Class, create:() => Address()),
     'GetAddressListResponse': TypeInfo(TypeOf.Class, create:() => GetAddressListResponse()),
     'List<Address>': TypeInfo(TypeOf.Class, create:() => <Address>[]),
-    'GetAddressResponse': TypeInfo(TypeOf.Class, create:() => GetAddressResponse()),
     'GetAddressList': TypeInfo(TypeOf.Class, create:() => GetAddressList()),
-    'GetAddress': TypeInfo(TypeOf.Class, create:() => GetAddress()),
 });
 

@@ -17,16 +17,4 @@ class AddressService {
     }
   }
 
-  Future<GetAddressResponse> getAddress(String addressId) async {
-    var request = GetAddress(addressId: addressId);
-
-    try {
-      var response = await client.get(request);
-      return response;
-    } catch (err) {
-      var msg = 'Something went wrong!';
-      return Future.error(msg);
-    }
-  }
-
 }
